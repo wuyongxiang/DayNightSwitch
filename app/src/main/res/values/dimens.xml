@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShadowView">
+        <attr format="color" name="shadow_color"/>
+        <attr format="dimension" name="shadow_radius"/>
+        <attr format="dimension" name="shadow_blur"/>
+        <attr format="dimension" name="shadow_dx"/>
+        <attr format="dimension" name="shadow_dy"/>
+    </declare-styleable>
+
+    <declare-styleable name="DayNightSwitch">
+        <attr format="color" name="background_color"/>
+        <attr format="boolean" name="checked"/>
+    </declare-styleable>
+
+</resources>
