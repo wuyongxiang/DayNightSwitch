@@ -456,9 +456,9 @@ public class DayNightSwitch extends CompoundButton {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 if(!isRunning){
+                    isRunning = true;
                     new Thread(checkRunnable).start();
                 }
-                isRunning = true;
                 break;
             case MotionEvent.ACTION_MOVE:
                 break;
@@ -471,14 +471,21 @@ public class DayNightSwitch extends CompoundButton {
     Runnable checkRunnable =new Runnable() {
         @Override
         public void run() {
+            if(isChecked()){
+                setChecked(false);
+            }else {
+                setChecked(true);
+            }
+
+            onCheckedChangeListener.onCheckedChanged(DayNightSwitch.this,isChecked());
+
             int time = 0;
             float v0 = switch_height/32;
             float a = (switch_width -switch_height -v0*100) *2 /10000 ; //S=v0t+1/2at^2
             float initialX = buttonF.x;
             float distan = Math.abs(buttonF.x-centerF.x);
-            Log.i("onDraw",new Gson().toJson(isChecked()));
             while (time<100){
-                if(isChecked()){
+                if(!isChecked()){
                     //day 2 night
                     bgColor = new float[]{bgColor[0] + 0.55f, bgColor[1] + 1.42f, bgColor[2] + 1.89f};
                     buttonColor = new float[]{buttonColor[0] + 0.73f, buttonColor[1] + 0.17f, buttonColor[2] - 2.26f};
@@ -529,11 +536,7 @@ public class DayNightSwitch extends CompoundButton {
                 time++;
             }
             isRunning = false;
-            if(isChecked()){
-                setChecked(false);
-            }else {
-                setChecked(true);
-            }
+
         }
     };
     @Override
